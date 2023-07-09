@@ -1,0 +1,66 @@
+Node *solve(Node *first, Node *second)
+{
+
+    Node *prev = first;
+    Node *curr = first->next;
+    Node *temp = second;
+    Node *dupl = temp;
+    while (curr != NULL && temp != NULL)
+
+    {
+
+        if (((temp->data) >= (prev->data)) && ((temp->data) <= (curr->data)))
+        {
+
+            prev->next = temp;
+            dupl = temp->next;
+            temp->next = curr;
+            prev = temp;
+            temp = dupl;
+        }
+        else
+        {
+
+            prev = prev->next;
+            curr = curr->next;
+        }
+    }
+
+    if (temp == NULL)
+    {
+        return first;
+    }
+    else
+    {
+        prev->next = temp;
+        return first;
+    }
+}
+
+Node *sortedMerge(Node *head1, Node *head2)
+{
+    Node *head;
+
+    if (head1 == NULL)
+    {
+        return head2;
+    }
+    if (head2 == NULL)
+    {
+
+        return head1;
+    }
+
+    if ((head1->data) <= (head2->data))
+    {
+
+        head = solve(head1, head2);
+    }
+    else
+    {
+
+        head = solve(head2, head1);
+    }
+
+    return head;
+}
